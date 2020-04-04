@@ -51,6 +51,7 @@ const App = () => {
         <input
           className="search-bar"
           type="text"
+          placeholder="Enter search terms..."
           value={search}
           onChange={updateSearch}
         />

@@ -17,13 +17,25 @@
   width: 50%;
   border: none;
   padding: 10px;
+  font-size: 20px;
 }
 
 .search-button {
-  background: lightcoral;
+  background: #b23a48;
   border: none;
   padding: 10px 20px;
   color: #fff;
+  font-size: 20px;
+  outline: none;
+}
+
+.search-button:hover {
+  background: #8c2f39;
+}
+
+.search-button:focus,
+.search-button:active {
+  background-color: #461220;
 }
 
 .recipes {

@@ -1,26 +1,81 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Recipe from "./Recipe";
+import "./App.css";
 
-function App() {
+require("dotenv").config();
+
+const App = () => {
+  const APP_ID = process.env.REACT_APP_API_ID;
+  const APP_KEY = process.env.REACT_APP_API_KEY;
+  // const exampleReq = `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`;
+
+  const [recipes, setRecipes] = useState([]);
+  // const [count, setCount] = useState(0);
+  const [search, setSearch] = useState("");
+  const [query, setQuery] = useState("chicken");
+
+  // useEffect(() => {
+  //   console.log(`Effect has been run ${count} times.`);
+  // }, [count]); // this runs each time count changes bc there is a count in the bracket.  if [] is empty, it only runs 1x
+
+  useEffect(() => {
+    getRecipes();
+  }, [query]);
+
+  const getRecipes = async () => {
+    const response = await fetch(
+      `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
+    );
+    console.log("response ", response);
+
+    const data = await response.json();
+    setRecipes(data.hits);
+    console.log(data.hits);
+  };
+
+  const updateSearch = e => {
+    setSearch(e.target.value);
+    console.log(search);
+  };
+
+  const getSearch = e => {
+    e.preventDefault();
+    setQuery(search);
+    setSearch("");
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form onSubmit={getSearch} className="search-form">
+        <input
+          className="search-bar"
+          type="text"
+          value={search}
+          onChange={updateSearch}
+        />
+        <button className="search-button" type="submit">
+          Search
+        </button>
+      </form>
+      <div className="recipes">
+        {recipes.map(recipe => (
+          <Recipe
+            key={recipe.recipe.label}
+            title={recipe.recipe.label}
+            calories={recipe.recipe.calories}
+            serving={recipe.recipe.yield}
+            totalTime={recipe.recipe.totalTime}
+            image={recipe.recipe.image}
+            label={recipe.recipe.label}
+            ingredientLines={recipe.recipe.ingredientLines}
+          />
+        ))}
+      </div>
+      {/* <h1
+        onClick={() => setCount(count + 1)}
+      >{`you clicked ${count} times`}</h1> */}
     </div>
   );
-}
+};
 
 export default App;

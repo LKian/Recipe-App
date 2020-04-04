@@ -1,5 +1,16 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Cloning this repo
+
+The `.env` file is hidden as it contains my own API_KEY and API_ID. Please refer to `.SAMPLEENV`.
+
+### Steps:
+
+1. Change the file name from `.SAMPLEENV` to `.env`
+2. Get your own API from [Edamam: Recipe Search](https://developer.edamam.com/edamam-recipe-api)
+3. In your `.env` file, paste in your new API_KEY and APP_ID
+4. Restart server
+
 ## Available Scripts
 
 In the project directory, you can run:

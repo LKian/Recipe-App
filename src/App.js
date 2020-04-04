@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import Recipe from "./Recipe";
 import "./App.css";
 
-require("dotenv").config();
+require("dotenv").config({ path: "./config.env" });
 
 const App = () => {
   const APP_ID = process.env.REACT_APP_API_ID;
   const APP_KEY = process.env.REACT_APP_API_KEY;
+
   // const exampleReq = `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`;
 
   const [recipes, setRecipes] = useState([]);
@@ -33,12 +34,12 @@ const App = () => {
     console.log(data.hits);
   };
 
-  const updateSearch = e => {
+  const updateSearch = (e) => {
     setSearch(e.target.value);
     console.log(search);
   };
 
-  const getSearch = e => {
+  const getSearch = (e) => {
     e.preventDefault();
     setQuery(search);
     setSearch("");
@@ -58,7 +59,7 @@ const App = () => {
         </button>
       </form>
       <div className="recipes">
-        {recipes.map(recipe => (
+        {recipes.map((recipe) => (
           <Recipe
             key={recipe.recipe.label}
             title={recipe.recipe.label}
@@ -71,11 +72,11 @@ const App = () => {
           />
         ))}
       </div>
-      {/* <h1
-        onClick={() => setCount(count + 1)}
-      >{`you clicked ${count} times`}</h1> */}
     </div>
   );
 };
 
 export default App;
+
+// REACT_APP_API_ID="cadb6b6a"
+// REACT_APP_API_KEY="960460011076a1d3037f72a2e264ffe8";
